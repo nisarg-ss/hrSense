@@ -5,11 +5,8 @@ import json
 
 bp = Blueprint('bp',__name__)
 
-@bp.route("/",methods=['GET'])
-def index():
-    return "Home Page"
 
-@bp.route('/employee/add',methods=['POST'])
+@bp.route('/employee',methods=['POST'])
 def create():
     try:
         data=request.get_json()
@@ -28,7 +25,7 @@ def create():
         return jsonify({"OK":"false","error":str(e),"data":{}}),400
 
 
-@bp.route('/employee/<int:id>/delete',methods=['DELETE'])
+@bp.route('/employee/<int:id>',methods=['DELETE'])
 def delete_Employee(id):
     try:
         emp=sess.query(Employee).filter_by(id=id).first()
@@ -42,7 +39,7 @@ def delete_Employee(id):
         return jsonify({"OK":"false","error":str(e),"data":{}}),400
 
 
-@bp.route('/employee/<int:id>/update',methods=['PUT'])
+@bp.route('/employee/<int:id>',methods=['PUT'])
 def update_data(id):
     try:
         data=request.get_json()
@@ -58,7 +55,7 @@ def update_data(id):
         sess.rollback()
         return jsonify({"OK":"false","error":str(e),"data":{}}),400
 
-@bp.route('/employee/<int:id>/fetch',methods=['GET'])
+@bp.route('/employee/<int:id>',methods=['GET'])
 def fetch_data(id):
     try:
         emp=sess.query(Employee).filter_by(id=id).first()

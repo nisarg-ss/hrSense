@@ -1,8 +1,10 @@
-from flask import Flask,request,jsonify
-from app.controllers.employee_controller import bp
+from flask import Flask
+from app.controllers.employee_controller import bp as employee_bp
+import os
 
 app=Flask(__name__)
-app.register_blueprint(bp)
+app.config['SECRET_KEY']=os.environ.get('secret_key')
+app.register_blueprint(employee_bp)
 
 @app.route("/",methods=['GET'])
 def index():
